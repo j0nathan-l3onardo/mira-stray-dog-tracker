@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { v4 as uuidv4 } from 'uuid'
-import { DogInfo } from '@/types'
+import { DogInfo } from '../../types'
 
 // This would be replaced with a database in a real application
 let dogs: DogInfo[] = []

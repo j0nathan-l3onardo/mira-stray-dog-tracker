@@ -1,4 +1,4 @@
-import { DogInfo } from '@/types'
+import { DogInfo } from '../types'
 
 interface DogListProps {
   dogs: DogInfo[]
