@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useRouter } from 'next/navigation'
 
-export default function DogForm() {
+export function DogForm() {
   const [latitude, setLatitude] = useState('')
   const [longitude, setLongitude] = useState('')
   const [description, setDescription] = useState('')

@@ -1,6 +1,11 @@
-import DogForm from './components/DogForm'
+import dynamic from 'next/dynamic'
+import { DogForm } from './components/DogForm'
 import { DogList } from './components/DogList'
-import { DogMap } from './components/DogMap'
+
+const DogMap = dynamic(() => import('./components/DogMap').then(mod => mod.DogMap), {
+  ssr: false,
+  loading: () => <div>Loading map...</div>
+})
 
 export default function Home() {
   return (
