@@ -12,10 +12,12 @@ export default function DogForm() {
   const [description, setDescription] = useState('')
   const [name, setName] = useState('')
   const [image, setImage] = useState<File | null>(null)
+  const [error, setError] = useState<string | null>(null)
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError(null)
     const formData = new FormData()
     formData.append('latitude', latitude)
     formData.append('longitude', longitude)
@@ -25,23 +27,31 @@ export default function DogForm() {
       formData.append('image', image)
     }
 
-    const response = await fetch('/api/dogs', {
-      method: 'POST',
-      body: formData,
-    })
+    try {
+      const response = await fetch('/api/dogs', {
+        method: 'POST',
+        body: formData,
+      })
 
-    if (response.ok) {
+      if (!response.ok) {
+        throw new Error('Failed to submit dog information')
+      }
+
       setLatitude('')
       setLongitude('')
       setDescription('')
       setName('')
       setImage(null)
       router.refresh()
+    } catch (error) {
+      console.error('Error submitting dog information:', error)
+      setError('Failed to submit dog information. Please try again.')
     }
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {error && <div className="text-red-500">{error}</div>}
       <Input
         type="number"
         placeholder="Latitude"
