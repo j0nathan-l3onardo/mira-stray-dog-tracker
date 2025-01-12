@@ -14,9 +14,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80"
     }
 
+    const combinedClassName = `${baseStyles} ${variants[variant]} ${className}`.trim()
+
     return (
       <button
-        className={`${baseStyles} ${variants[variant]} ${className}`}
+        className={combinedClassName}
         ref={ref}
         {...props}
       />
