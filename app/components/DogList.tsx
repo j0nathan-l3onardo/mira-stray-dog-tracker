@@ -1,10 +1,41 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import { DogInfo } from '../types'
 
-interface DogListProps {
-  dogs: DogInfo[]
-}
+export function DogList() {
+  const [dogs, setDogs] = useState<DogInfo[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-export default function DogList({ dogs }: DogListProps) {
+  useEffect(() => {
+    async function fetchDogs() {
+      try {
+        const res = await fetch('/api/dogs')
+        if (!res.ok) {
+          throw new Error('Failed to fetch dogs')
+        }
+        const data = await res.json()
+        setDogs(data)
+      } catch (err) {
+        setError('Failed to load dogs')
+        console.error('Error fetching dogs:', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchDogs()
+  }, [])
+
+  if (loading) {
+    return <div>Loading dogs...</div>
+  }
+
+  if (error) {
+    return <div className="text-red-500">{error}</div>
+  }
+
   return (
     <ul className="space-y-4 mt-4">
       {dogs.map((dog) => (

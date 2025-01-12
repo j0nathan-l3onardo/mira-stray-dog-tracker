@@ -17,8 +17,6 @@ export async function POST(request: NextRequest) {
     let imageUrl: string | undefined
 
     if (image) {
-      // In a real application, you would upload this to a cloud storage service
-      // and get back a URL. For now, we'll just pretend we did that.
       imageUrl = `/placeholder.svg?height=300&width=300`
     }
 
@@ -36,7 +34,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, dog: newDog })
   } catch (error) {
     console.error('Error in POST /api/dogs:', error)
-    return NextResponse.json({ success: false, error: 'Internal Server Error' }, { status: 500 })
+    return NextResponse.json(
+      { success: false, error: 'Internal Server Error' },
+      { status: 500 }
+    )
   }
 }
 
@@ -45,7 +46,10 @@ export async function GET() {
     return NextResponse.json(dogs)
   } catch (error) {
     console.error('Error in GET /api/dogs:', error)
-    return NextResponse.json({ success: false, error: 'Internal Server Error' }, { status: 500 })
+    return NextResponse.json(
+      { success: false, error: 'Internal Server Error' },
+      { status: 500 }
+    )
   }
 }
 
