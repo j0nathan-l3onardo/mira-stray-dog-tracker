@@ -17,7 +17,6 @@ export async function POST(request: NextRequest) {
 
   if (image) {
     // In a real application, you would upload this to a cloud storage service
-    // and get back a URL. For now, we'll just pretend we did that.
     imageUrl = `/placeholder.svg?height=300&width=300`
   }
 
