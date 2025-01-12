@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+import React, { Suspense } from 'react'
 import DogForm from './components/DogForm'
 import DogMap from './components/DogMap'
 import DogList from './components/DogList'
@@ -17,7 +17,17 @@ async function getDogs(): Promise<DogInfo[]> {
   }
 }
 
-export default async function Home() {
+function DogListWrapper() {
+  const dogs = React.use(getDogs())
+  return <DogList dogs={dogs} />
+}
+
+function DogMapWrapper() {
+  const dogs = React.use(getDogs())
+  return <DogMap dogs={dogs} />
+}
+
+export default function Home() {
   return (
     <main className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">MIRA - Stray Dog Tracker</h1>
@@ -34,15 +44,5 @@ export default async function Home() {
       </div>
     </main>
   )
-}
-
-async function DogListWrapper() {
-  const dogs = await getDogs()
-  return <DogList dogs={dogs} />
-}
-
-async function DogMapWrapper() {
-  const dogs = await getDogs()
-  return <DogMap dogs={dogs} />
 }
 
