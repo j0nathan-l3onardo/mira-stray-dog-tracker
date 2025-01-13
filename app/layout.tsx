@@ -18,8 +18,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${roboto.className} flex flex-col items-center min-h-screen bg-gray-50`}>
+    <html lang="en" data-theme="light">
+      <body className={`${roboto.className} flex flex-col items-center min-h-screen bg-base-100`}>
         {children}
       </body>
     </html>
