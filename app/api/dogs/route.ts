@@ -8,6 +8,7 @@ let dogs: DogInfo[] = []
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
+    const address = formData.get('address') as string
     const latitude = parseFloat(formData.get('latitude') as string)
     const longitude = parseFloat(formData.get('longitude') as string)
     const description = formData.get('description') as string
@@ -22,6 +23,7 @@ export async function POST(request: NextRequest) {
 
     const newDog: DogInfo = {
       id: uuidv4(),
+      address,
       latitude,
       longitude,
       description,

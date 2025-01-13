@@ -48,6 +48,7 @@ export function DogMap() {
             <Popup>
               {dog.name && <h3>{dog.name}</h3>}
               <p>{dog.description}</p>
+              <p>Address: {dog.address}</p>
               {dog.imageUrl && <img src={dog.imageUrl} alt="Dog" className="w-full max-w-xs" />}
             </Popup>
           </Marker>
