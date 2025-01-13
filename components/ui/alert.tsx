@@ -1,67 +1,108 @@
-import * as Headless from '@headlessui/react'
-import clsx from 'clsx'
-import type React from 'react'
-import { Text } from './text'
+'use client'
 
-const sizes = {
-  xs: 'sm:max-w-xs',
-  sm: 'sm:max-w-sm',
-  md: 'sm:max-w-md',
-  lg: 'sm:max-w-lg',
-  xl: 'sm:max-w-xl',
-  '2xl': 'sm:max-w-2xl',
-  '3xl': 'sm:max-w-3xl',
-  '4xl': 'sm:max-w-4xl',
-  '5xl': 'sm:max-w-5xl',
+import * as React from 'react'
+import { Transition } from '@headlessui/react'
+import { clsx } from 'clsx'
+
+interface AlertProps {
+  type?: 'success' | 'warning' | 'error' | 'info'
+  title: string
+  children?: React.ReactNode
+  onClose?: () => void
 }
 
-export function Alert({
-  size = 'md',
-  className,
-  children,
-  ...props
-}: { size?: keyof typeof sizes; className?: string; children: React.ReactNode } & Omit<
-  Headless.DialogProps,
-  'as' | 'className'
->) {
-  return (
-    <Headless.Dialog {...props}>
-      <Headless.DialogBackdrop
-        transition
-        className="fixed inset-0 flex w-screen justify-center overflow-y-auto bg-zinc-950/15 px-2 py-2 transition duration-100 focus:outline-0 data-[closed]:opacity-0 data-[enter]:ease-out data-[leave]:ease-in sm:px-6 sm:py-8 lg:px-8 lg:py-16 dark:bg-zinc-950/50"
-      />
+export function Alert({ type = 'info', title, children, onClose }: AlertProps) {
+  const [show, setShow] = React.useState(true)
 
-      <div className="fixed inset-0 w-screen overflow-y-auto pt-6 sm:pt-0">
-        <div className="grid min-h-full grid-rows-[1fr_auto_1fr] justify-items-center p-8 sm:grid-rows-[1fr_auto_3fr] sm:p-4">
-          <Headless.DialogPanel
-            transition
-            className={clsx(
-              className,
-              sizes[size],
-              'row-start-2 w-full rounded-2xl bg-white p-8 shadow-lg ring-1 ring-zinc-950/10 sm:rounded-2xl sm:p-6 dark:bg-zinc-900 dark:ring-white/10 forced-colors:outline',
-              'transition duration-100 will-change-transform data-[closed]:data-[enter]:scale-95 data-[closed]:opacity-0 data-[enter]:ease-out data-[leave]:ease-in'
+  const handleClose = () => {
+    setShow(false)
+    onClose?.()
+  }
+
+  const colors = {
+    info: 'bg-blue-50 text-blue-800',
+    success: 'bg-green-50 text-green-800',
+    warning: 'bg-yellow-50 text-yellow-800',
+    error: 'bg-red-50 text-red-800'
+  }
+
+  const iconColors = {
+    info: 'text-blue-400',
+    success: 'text-green-400',
+    warning: 'text-yellow-400',
+    error: 'text-red-400'
+  }
+
+  return (
+    <Transition
+      show={show}
+      enter="transition-opacity duration-75"
+      enterFrom="opacity-0"
+      enterTo="opacity-100"
+      leave="transition-opacity duration-150"
+      leaveFrom="opacity-100"
+      leaveTo="opacity-0"
+    >
+      <div className={clsx('rounded-md p-4', colors[type])}>
+        <div className="flex">
+          <div className="flex-shrink-0">
+            {type === 'info' && (
+              <svg className={clsx('h-5 w-5', iconColors[type])} viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              </svg>
             )}
-          >
-            {children}
-          </Headless.DialogPanel>
+            {type === 'success' && (
+              <svg className={clsx('h-5 w-5', iconColors[type])} viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+            )}
+            {type === 'warning' && (
+              <svg className={clsx('h-5 w-5', iconColors[type])} viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+              </svg>
+            )}
+            {type === 'error' && (
+              <svg className={clsx('h-5 w-5', iconColors[type])} viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
+            )}
+          </div>
+          <div className="ml-3">
+            <h3 className="text-sm font-medium">{title}</h3>
+            {children && (
+              <div className="mt-2 text-sm">
+                {children}
+              </div>
+            )}
+          </div>
+          {onClose && (
+            <div className="ml-auto pl-3">
+              <div className="-mx-1.5 -my-1.5">
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  className={clsx(
+                    'inline-flex rounded-md p-1.5',
+                    'focus:outline-none focus:ring-2 focus:ring-offset-2',
+                    {
+                      'bg-blue-50 text-blue-500 hover:bg-blue-100 focus:ring-blue-600': type === 'info',
+                      'bg-green-50 text-green-500 hover:bg-green-100 focus:ring-green-600': type === 'success',
+                      'bg-yellow-50 text-yellow-500 hover:bg-yellow-100 focus:ring-yellow-600': type === 'warning',
+                      'bg-red-50 text-red-500 hover:bg-red-100 focus:ring-red-600': type === 'error',
+                    }
+                  )}
+                >
+                  <span className="sr-only">Dismiss</span>
+                  <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-    </Headless.Dialog>
-  )
-}
-
-export function AlertTitle({
-  className,
-  ...props
-}: { className?: string } & Omit<Headless.DialogTitleProps, 'as' | 'className'>) {
-  return (
-    <Headless.DialogTitle
-      {...props}
-      className={clsx(
-        className,
-        'text-balance text-center text-base/6 font-semibold text-zinc-950 sm:text-wrap sm:text-left sm:text-sm/6 dark:text-white'
-      )}
-    />
+    </Transition>
   )
 }
 
