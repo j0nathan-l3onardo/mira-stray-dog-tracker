@@ -56,3 +56,6 @@ export function DogMap() {
   )
 }
 
+// Add default export
+export default DogMap
+

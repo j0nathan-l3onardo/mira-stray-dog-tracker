@@ -1,8 +1,21 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { DogForm } from './DogForm'
 import { DogList } from './DogList'
-import { DogMap } from './DogMap'
+
+// Dynamically import DogMap with SSR disabled
+const DogMap = dynamic(
+  () => import('./DogMap').then((mod) => mod.DogMap),
+  { 
+    ssr: false,
+    loading: () => (
+      <div className="flex items-center justify-center h-96 bg-gray-50">
+        <div className="text-sm text-gray-500">Loading map...</div>
+      </div>
+    )
+  }
+)
 
 export function MainContent() {
   return (
