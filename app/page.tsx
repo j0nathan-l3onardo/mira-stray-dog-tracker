@@ -7,7 +7,7 @@ export default function Home() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-            <span className="block text-primary-600 xl:inline">Mira</span>
+            <span className="block text-purple-400 xl:inline">Mira</span>
           </h1>
           <div className="mt-6 flex justify-center">
             <MiraLogo />

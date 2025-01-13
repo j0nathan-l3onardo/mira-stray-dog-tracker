@@ -1,7 +1,7 @@
-import '../styles/globals.css'
 import { Roboto } from 'next/font/google'
+import '../styles/globals.css'
 
-const roboto = Roboto({ 
+const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
   subsets: ['latin'],
   display: 'swap',
@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={roboto.className}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
