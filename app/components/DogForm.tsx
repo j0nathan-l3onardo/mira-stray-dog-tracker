@@ -98,12 +98,16 @@ export function DogForm() {
         placeholder="Latitude"
         value={latitude}
         readOnly
+        disabled
+        className="bg-gray-100 text-gray-600 cursor-not-allowed"
       />
       <Input
         type="number"
         placeholder="Longitude"
         value={longitude}
         readOnly
+        disabled
+        className="bg-gray-100 text-gray-600 cursor-not-allowed"
       />
       <Textarea
         placeholder="Description"
