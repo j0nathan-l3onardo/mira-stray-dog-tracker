@@ -1,13 +1,20 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useRouter } from 'next/navigation'
 
+interface AddressSuggestion {
+  display_name: string;
+  lat: string;
+  lon: string;
+}
+
 export function DogForm() {
   const [address, setAddress] = useState('')
+  const [addressSuggestions, setAddressSuggestions] = useState<AddressSuggestion[]>([])
   const [latitude, setLatitude] = useState('')
   const [longitude, setLongitude] = useState('')
   const [description, setDescription] = useState('')
@@ -15,39 +22,61 @@ export function DogForm() {
   const [image, setImage] = useState<File | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [addressError, setAddressError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const autocompleteRef = useRef<HTMLDivElement>(null)
 
-  const validateAddress = async () => {
-    setAddressError(null)
-    setError(null)
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (autocompleteRef.current && !autocompleteRef.current.contains(event.target as Node)) {
+        setAddressSuggestions([])
+      }
+    }
 
-    try {
-      const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
-      const data = await response.json()
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
-      if (data.length === 0) {
-        setAddressError('Address not found. Please try a different address.')
-        setLatitude('')
-        setLongitude('')
-        return false
+  useEffect(() => {
+    const fetchAddressSuggestions = async () => {
+      if (address.length < 2) {
+        setAddressSuggestions([])
+        return
       }
 
-      setLatitude(data[0].lat)
-      setLongitude(data[0].lon)
-      return true
-    } catch (error) {
-      console.error('Error validating address:', error)
-      setAddressError('Error validating address. Please try again.')
-      return false
+      setIsLoading(true)
+      try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+        const data = await response.json()
+        setAddressSuggestions(data)
+      } catch (error) {
+        console.error('Error fetching address suggestions:', error)
+      } finally {
+        setIsLoading(false)
+      }
     }
+
+    const debounceTimer = setTimeout(fetchAddressSuggestions, 300)
+    return () => clearTimeout(debounceTimer)
+  }, [address])
+
+  const handleAddressSelect = (suggestion: AddressSuggestion) => {
+    setAddress(suggestion.display_name)
+    setLatitude(suggestion.lat)
+    setLongitude(suggestion.lon)
+    setAddressSuggestions([])
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
 
-    const isAddressValid = await validateAddress()
-    if (!isAddressValid) return
+    if (!latitude || !longitude) {
+      setAddressError('Please select a valid address from the suggestions.')
+      return
+    }
 
     const formData = new FormData()
     formData.append('address', address)
@@ -85,13 +114,29 @@ export function DogForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {error && <div className="text-red-500">{error}</div>}
-      <Input
-        type="text"
-        placeholder="Address"
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
-        required
-      />
+      <div className="relative">
+        <Input
+          type="text"
+          placeholder="Address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          required
+        />
+        {isLoading && <div className="absolute right-3 top-3">Loading...</div>}
+        {addressSuggestions.length > 0 && (
+          <div ref={autocompleteRef} className="absolute z-10 w-full bg-white border border-gray-300 mt-1 rounded-md shadow-lg">
+            {addressSuggestions.map((suggestion, index) => (
+              <div
+                key={index}
+                className="p-2 hover:bg-gray-100 cursor-pointer"
+                onClick={() => handleAddressSelect(suggestion)}
+              >
+                {suggestion.display_name}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
       {addressError && <div className="text-red-500">{addressError}</div>}
       <Input
         type="number"
