@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -9,9 +11,11 @@ module.exports = {
     extend: {
       colors: {
         'cream-100': 'hsl(39, 100%, 97%)',
+        primary: colors.purple,
+        secondary: colors.pink,
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 }
 

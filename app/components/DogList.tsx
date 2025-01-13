@@ -29,22 +29,32 @@ export function DogList() {
   }, [])
 
   if (loading) {
-    return <div>Loading dogs...</div>
+    return <div className="text-center">Loading dogs...</div>
   }
 
   if (error) {
-    return <div className="text-red-500">{error}</div>
+    return <div className="text-red-600">{error}</div>
   }
 
   return (
-    <ul className="space-y-4 mt-4">
+    <ul role="list" className="divide-y divide-gray-100">
       {dogs.map((dog) => (
-        <li key={dog.id} className="border p-4 rounded">
-          {dog.name && <h3 className="font-bold">{dog.name}</h3>}
-          <p>{dog.description}</p>
-          <p>Address: {dog.address}</p>
-          <p>Location: {dog.latitude}, {dog.longitude}</p>
-          {dog.imageUrl && <img src={dog.imageUrl} alt="Dog" className="w-full max-w-xs mt-2" />}
+        <li key={dog.id} className="flex justify-between gap-x-6 py-5">
+          <div className="flex min-w-0 gap-x-4">
+            {dog.imageUrl && (
+              <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src={dog.imageUrl} alt="" />
+            )}
+            <div className="min-w-0 flex-auto">
+              <p className="text-sm font-semibold leading-6 text-gray-900">{dog.name || 'Unnamed Dog'}</p>
+              <p className="mt-1 truncate text-xs leading-5 text-gray-500">{dog.address}</p>
+            </div>
+          </div>
+          <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+            <p className="text-sm leading-6 text-gray-900">{dog.description}</p>
+            <p className="mt-1 text-xs leading-5 text-gray-500">
+              Lat: {dog.latitude}, Lon: {dog.longitude}
+            </p>
+          </div>
         </li>
       ))}
     </ul>

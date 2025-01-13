@@ -11,7 +11,6 @@ export function DogMap() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    // Fetch dogs data
     async function fetchDogs() {
       try {
         const res = await fetch('/api/dogs')
@@ -32,29 +31,28 @@ export function DogMap() {
   }, [])
 
   if (loading) {
-    return <div>Loading map...</div>
+    return <div className="text-center">Loading map...</div>
   }
 
   if (error) {
-    return <div className="text-red-500">{error}</div>
+    return <div className="text-red-600">{error}</div>
   }
 
   return (
-    <div style={{ height: '400px', width: '100%' }}>
-      <MapContainer center={[0, 0]} zoom={2} style={{ height: '100%', width: '100%' }}>
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        {dogs.map((dog) => (
-          <Marker key={dog.id} position={[dog.latitude, dog.longitude]}>
-            <Popup>
-              {dog.name && <h3>{dog.name}</h3>}
-              <p>{dog.description}</p>
-              <p>Address: {dog.address}</p>
-              {dog.imageUrl && <img src={dog.imageUrl} alt="Dog" className="w-full max-w-xs" />}
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-    </div>
+    <MapContainer center={[0, 0]} zoom={2} style={{ height: '100%', width: '100%' }}>
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      {dogs.map((dog) => (
+        <Marker key={dog.id} position={[dog.latitude, dog.longitude]}>
+          <Popup>
+            <div className="text-sm">
+              <h3 className="font-semibold">{dog.name || 'Unnamed Dog'}</h3>
+              <p className="mt-1">{dog.description}</p>
+              <p className="mt-1 text-xs text-gray-500">{dog.address}</p>
+            </div>
+          </Popup>
+        </Marker>
+      ))}
+    </MapContainer>
   )
 }
 
