@@ -6,12 +6,8 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {
-      colors: {
-        'cream-100': 'hsl(39, 100%, 97%)',
-      },
-    },
+    extend: {},
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [require("daisyui")],
 }
 
