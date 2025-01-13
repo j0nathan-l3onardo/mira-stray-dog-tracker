@@ -112,7 +112,7 @@ export function DogForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md">
       {error && <div className="text-red-500">{error}</div>}
       <div className="relative">
         <Input
@@ -121,6 +121,7 @@ export function DogForm() {
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           required
+          className="rounded-lg placeholder-gray-400"
         />
         {isLoading && <div className="absolute right-3 top-3">Loading...</div>}
         {addressSuggestions.length > 0 && (
@@ -144,7 +145,7 @@ export function DogForm() {
         value={latitude}
         readOnly
         disabled
-        className="bg-gray-100 text-gray-600 cursor-not-allowed"
+        className="bg-gray-100 text-gray-600 cursor-not-allowed rounded-lg"
       />
       <Input
         type="number"
@@ -152,26 +153,29 @@ export function DogForm() {
         value={longitude}
         readOnly
         disabled
-        className="bg-gray-100 text-gray-600 cursor-not-allowed"
+        className="bg-gray-100 text-gray-600 cursor-not-allowed rounded-lg"
       />
       <Textarea
         placeholder="Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         required
+        className="rounded-lg placeholder-gray-400"
       />
       <Input
         type="text"
         placeholder="Name (optional)"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        className="rounded-lg placeholder-gray-400"
       />
       <Input
         type="file"
         accept="image/*"
         onChange={(e) => setImage(e.target.files?.[0] || null)}
+        className="rounded-lg"
       />
-      <Button type="submit">Submit</Button>
+      <Button type="submit" className="w-full bg-purple-600 text-cream-100 hover:bg-purple-700">Submit</Button>
     </form>
   )
 }

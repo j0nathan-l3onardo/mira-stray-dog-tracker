@@ -1,10 +1,14 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Roboto } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const roboto = Roboto({ 
+  weight: ['300', '400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const metadata = {
-  title: 'MIRA - Stray Dog Tracker',
+  title: 'Mira - Stray Dog Tracker',
   description: 'Help stray dogs in need by reporting their location and condition.',
 }
 
@@ -15,7 +19,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${roboto.className} flex flex-col items-center min-h-screen bg-gray-50`}>
+        {children}
+      </body>
     </html>
   )
 }
