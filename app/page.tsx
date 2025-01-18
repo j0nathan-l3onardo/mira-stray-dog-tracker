@@ -9,7 +9,7 @@ export default function Home() {
           alt="Mira Logo" 
           className="w-16 h-16 mb-2" // Resized to 64x64 pixels
         />
-        <h1 className="text-4xl font-bold text-center text-primary">Mira</h1>
+        <h1 className="text-4xl font-bold text-center text-primary">mira</h1>
         <p className="text-lg text-center mt-2 text-base-content font-light">
           Our mission is to give a voice to those that cannot speak.
         </p>
