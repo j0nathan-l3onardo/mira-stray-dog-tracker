@@ -1,4 +1,4 @@
-<div className="flex items-center">
+<div className="flex items-center gap-0.5">
   <img 
     src="/path-to-logo.png" 
     alt="Mira Logo" 
