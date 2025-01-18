@@ -10,6 +10,10 @@ module.exports = {
       fontFamily: {
         sans: ['Inter var', 'Inter', 'sans-serif'],
       },
+      colors: {
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+      },
     },
   },
   plugins: [],
