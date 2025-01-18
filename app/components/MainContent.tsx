@@ -5,10 +5,16 @@ import AddressInput from './AddressInput';
 import DogMap from './DogMap';
 
 const MainContent = () => {
-  const [mapCoordinates, setMapCoordinates] = useState(null);
+  const [mapCoordinates, setMapCoordinates] = useState<[number, number] | null>(null);
   const [selectedAddress, setSelectedAddress] = useState('');
 
-  const handleAddressSelect = ({ address, coordinates }) => {
+  const handleAddressSelect = ({ 
+    address, 
+    coordinates 
+  }: { 
+    address: string; 
+    coordinates: [number, number] 
+  }) => {
     setSelectedAddress(address);
     setMapCoordinates(coordinates);
   };

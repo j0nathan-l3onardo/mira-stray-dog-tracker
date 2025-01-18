@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { MdMyLocation } from 'react-icons/md';
 
-const AddressInput = ({ onAddressSelect }) => {
+interface AddressInputProps {
+  onAddressSelect: (data: { address: string; coordinates: [number, number] }) => void;
+}
+
+const AddressInput = ({ onAddressSelect }: AddressInputProps) => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');

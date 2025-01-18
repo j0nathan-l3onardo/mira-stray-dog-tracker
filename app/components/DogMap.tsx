@@ -4,8 +4,16 @@ import { useEffect } from 'react'
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 
+interface MapUpdaterProps {
+  coordinates: [number, number] | null;
+}
+
+interface DogMapProps {
+  coordinates: [number, number] | null;
+}
+
 // This component handles map position updates
-function MapUpdater({ coordinates }) {
+function MapUpdater({ coordinates }: MapUpdaterProps) {
   const map = useMap();
   
   useEffect(() => {
@@ -17,8 +25,8 @@ function MapUpdater({ coordinates }) {
   return null;
 }
 
-const DogMap = ({ coordinates }) => {
-  const defaultPosition = [51.505, -0.09]; // Default center position
+const DogMap = ({ coordinates }: DogMapProps) => {
+  const defaultPosition: [number, number] = [51.505, -0.09]; // Default center position
   const position = coordinates || defaultPosition;
 
   return (
