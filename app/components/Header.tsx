@@ -2,7 +2,7 @@
   <img 
     src="/path-to-logo.png" 
     alt="Mira Logo" 
-    className="h-20"
+    className="h-40"
   />
   <span className="text-[#0F2936]">mira</span>
 </div>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import AddressInput from './AddressInput';
 import DogMap from './DogMap';
+import Image from 'next/image';
 
 const MainContent = () => {
   const [mapCoordinates, setMapCoordinates] = useState<[number, number] | null>(null);
@@ -24,10 +25,12 @@ const MainContent = () => {
       {/* Header Section */}
       <div className="mb-8">
         <div className="flex items-center gap-0.5 mb-4">
-          <img 
-            src="/path-to-logo.png" 
+          <Image 
+            src="/logo.png" 
             alt="Mira Logo" 
-            className="h-40"
+            width={160}
+            height={160}
+            priority
           />
           <span className="text-[#0F2936]">mira</span>
         </div>
