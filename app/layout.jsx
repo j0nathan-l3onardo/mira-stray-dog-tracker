@@ -3,10 +3,15 @@ import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
+export const metadata = {
+  title: 'Mira Stray Dog Tracker',
+  description: 'Help stray dogs find their way home',
+}
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={inter.className}>
-      <body>{children}</body>
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
     </html>
   )
 } 
