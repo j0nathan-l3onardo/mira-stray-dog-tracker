@@ -21,8 +21,32 @@ const MainContent = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <AddressInput onAddressSelect={handleAddressSelect} />
-      <DogMap coordinates={mapCoordinates} />
+      {/* Header Section */}
+      <div className="mb-8">
+        <div className="flex items-center gap-0.5 mb-4">
+          <img 
+            src="/path-to-logo.png" 
+            alt="Mira Logo" 
+            className="h-40"
+          />
+          <span className="text-[#0F2936]">mira</span>
+        </div>
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">Our Mission</h2>
+        <p className="text-gray-600">
+          Help us track and care for stray dogs in our community. Together, we can make a difference in their lives.
+        </p>
+      </div>
+
+      {/* Form Section */}
+      <div className="mb-8">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">Report a Stray Dog</h2>
+        <AddressInput onAddressSelect={handleAddressSelect} />
+      </div>
+
+      {/* Map Section */}
+      <div className="h-[500px] rounded-lg overflow-hidden">
+        <DogMap coordinates={mapCoordinates} />
+      </div>
     </div>
   );
 };
