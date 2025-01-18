@@ -16,7 +16,7 @@ const AddressInput = ({ onAddressSelect }: AddressInputProps) => {
 
     if ("geolocation" in navigator) {
       try {
-        const position = await new Promise((resolve, reject) => {
+        const position: GeolocationPosition = await new Promise((resolve, reject) => {
           navigator.geolocation.getCurrentPosition(resolve, reject);
         });
 
@@ -38,7 +38,7 @@ const AddressInput = ({ onAddressSelect }: AddressInputProps) => {
           address,
           coordinates: [latitude, longitude]
         });
-      } catch (error) {
+      } catch (error: any) {
         let errorMessage = 'Failed to get location';
         if (error.code === 1) {
           errorMessage = 'Location access denied. Please enable location services.';
@@ -61,7 +61,7 @@ const AddressInput = ({ onAddressSelect }: AddressInputProps) => {
         <input
           type="text"
           value={inputValue}
-          onChange={handleInputChange}
+          onChange={(e) => setInputValue(e.target.value)}
           placeholder="Enter address..."
           className="w-full px-4 py-2 border rounded-lg"
           disabled={isLoading}
