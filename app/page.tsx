@@ -1,14 +1,9 @@
-import dynamic from 'next/dynamic';
-
-const MainContent = dynamic(
-  () => import('./components/MainContent'),
-  { ssr: false }
-);
+import ClientWrapper from './components/ClientWrapper';
 
 export default function Home() {
   return (
     <main>
-      <MainContent />
+      <ClientWrapper />
     </main>
   );
 }
