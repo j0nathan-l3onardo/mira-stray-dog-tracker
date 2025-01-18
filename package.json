@@ -14,7 +14,6 @@
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
-    "autoprefixer": "^10.x",
     "clsx": "^1.2.1",
     "daisyui": "^3.1.0",
     "eslint": "8.41.0",
@@ -22,18 +21,19 @@
     "framer-motion": "^11.17.0",
     "leaflet": "^1.9.4",
     "next": "^15.1.4",
-    "postcss": "^8.x",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^5.4.0",
     "react-leaflet": "^4.2.1",
-    "tailwindcss": "^3.x",
     "typescript": "5.0.4",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.3",
     "@types/uuid": "^9.0.1",
-    "sharp": "^0.33.5"
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.1",
+    "sharp": "^0.33.5",
+    "tailwindcss": "^3.4.17"
   }
 }
