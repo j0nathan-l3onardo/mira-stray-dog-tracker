@@ -1,4 +1,5 @@
 import { MainContent } from './components/MainContent'
+import { MapContainer, TileLayer } from 'react-leaflet'
 
 export default function Home() {
   return (
