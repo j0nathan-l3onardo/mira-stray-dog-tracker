@@ -90,5 +90,20 @@
   .text-foreground {
     color: #333; /* Example definition */
   }
+
+  /* Add padding to input fields */
+  input,
+  textarea {
+    padding: 12px; /* Adjust padding as needed */
+    margin-bottom: 16px; /* Space between fields */
+    border-radius: 4px; /* Optional: rounded corners */
+    border: 1px solid #ccc; /* Optional: border style */
+  }
+
+  /* Optional: Style for placeholder text */
+  ::placeholder {
+    color: #aaa; /* Placeholder text color */
+    opacity: 1; /* Ensure full opacity */
+  }
 }
 
