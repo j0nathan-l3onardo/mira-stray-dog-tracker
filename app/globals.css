@@ -70,10 +70,25 @@
  
 @layer base {
   * {
-    @apply border-border;
+    @apply border-gray-500;
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  
+  .border-border {
+    border: 1px solid #000; /* Example definition */
+  }
+
+  .bg-background {
+    background-color: #f0f0f0; /* Example definition */
+  }
+
+  .text-foreground {
+    color: #333; /* Example definition */
   }
 }
 
