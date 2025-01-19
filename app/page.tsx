@@ -1,6 +1,6 @@
 import { MainContent } from './components/MainContent'
-import { MapContainer, TileLayer } from 'react-leaflet'
 
+// Removed the import of MapContainer and TileLayer since they are not used
 export default function Home() {
   return (
     <main className="container mx-auto p-4 flex flex-col items-center">
